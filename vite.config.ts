@@ -21,7 +21,7 @@ export default defineConfig({
   assetsInclude: ['**/*.svg', '**/*.csv'],
   
   // GitHub Pages configuration
-  base: './',
+  base: '/marketa_protivova/',
   
   // Build configuration for production
   build: {
