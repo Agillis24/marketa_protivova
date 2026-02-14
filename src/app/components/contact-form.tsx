@@ -5,7 +5,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
-import { PrivacyPolicy } from './PrivacyPolicy';
+import { PrivacyPolicy } from './privacy-policy';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -20,7 +20,6 @@ export function ContactForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     console.log('Form submitted:', formData);
     alert('Formulář byl odeslán! (Pro produkci připojte Formspree/Netlify Forms)');
   };
@@ -169,7 +168,7 @@ export function ContactForm() {
         </form>
       </div>
 
-      {/* PRIVACY MODAL */}
+      {/* PRIVACY POLICY MODAL */}
       <PrivacyPolicy open={privacyOpen} setOpen={setPrivacyOpen} />
     </section>
   );
