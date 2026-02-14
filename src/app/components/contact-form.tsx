@@ -5,7 +5,6 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
-import { PrivacyPolicy } from './privacy-policy';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -16,10 +15,14 @@ export function ContactForm() {
     consent: false,
   });
 
-  const [privacyOpen, setPrivacyOpen] = useState(false);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // For static site deployment, this form can be connected to:
+    // 1. Formspree: add action="https://formspree.io/f/YOUR_FORM_ID" to form element
+    // 2. Netlify Forms: add data-netlify="true" to form element
+    // 3. Custom email API endpoint
+
     console.log('Form submitted:', formData);
     alert('Formulář byl odeslán! (Pro produkci připojte Formspree/Netlify Forms)');
   };
@@ -27,7 +30,6 @@ export function ContactForm() {
   return (
     <section id="kontakt" className="py-12 md:py-20 px-4 bg-white">
       <div className="max-w-3xl mx-auto">
-
         {/* Header */}
         <div className="text-center mb-8 md:mb-12 space-y-4">
           <h2
@@ -49,27 +51,46 @@ export function ContactForm() {
         <form
           onSubmit={handleSubmit}
           className="space-y-5 md:space-y-6 bg-muted/20 p-6 md:p-8 lg:p-10 rounded-2xl border border-border/50"
-        >
+          // For Formspree deployment, add:
+          // action="https://formspree.io/f/YOUR_FORM_ID"
+          // method="POST"
 
+          // For Netlify Forms deployment, add:
+          // data-netlify="true"
+          // name="contact"
+        >
           {/* Name */}
           <div className="space-y-2">
-            <Label htmlFor="name">Jméno a příjmení *</Label>
+            <Label
+              htmlFor="name"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="text-sm md:text-base"
+            >
+              Jméno a příjmení *
+            </Label>
             <Input
               id="name"
               name="name"
+              type="text"
               required
               placeholder="Jan Novák"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className="bg-white border-border/50 focus:border-accent h-11 md:h-12"
+              className="bg-white border-border/50 focus:border-accent h-11 md:h-12 text-sm md:text-base"
             />
           </div>
 
           {/* Email */}
           <div className="space-y-2">
-            <Label htmlFor="email">E-mail *</Label>
+            <Label
+              htmlFor="email"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="text-sm md:text-base"
+            >
+              E-mail *
+            </Label>
             <Input
               id="email"
               name="email"
@@ -80,13 +101,19 @@ export function ContactForm() {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              className="bg-white border-border/50 focus:border-accent h-11 md:h-12"
+              className="bg-white border-border/50 focus:border-accent h-11 md:h-12 text-sm md:text-base"
             />
           </div>
 
           {/* Phone */}
           <div className="space-y-2">
-            <Label htmlFor="phone">Telefon</Label>
+            <Label
+              htmlFor="phone"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="text-sm md:text-base"
+            >
+              Telefon
+            </Label>
             <Input
               id="phone"
               name="phone"
@@ -96,13 +123,19 @@ export function ContactForm() {
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
               }
-              className="bg-white border-border/50 focus:border-accent h-11 md:h-12"
+              className="bg-white border-border/50 focus:border-accent h-11 md:h-12 text-sm md:text-base"
             />
           </div>
 
           {/* Message */}
           <div className="space-y-2">
-            <Label htmlFor="message">Zpráva *</Label>
+            <Label
+              htmlFor="message"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="text-sm md:text-base"
+            >
+              Zpráva *
+            </Label>
             <Textarea
               id="message"
               name="message"
@@ -112,11 +145,11 @@ export function ContactForm() {
               onChange={(e) =>
                 setFormData({ ...formData, message: e.target.value })
               }
-              className="bg-white border-border/50 focus:border-accent min-h-[120px] md:min-h-[150px] resize-none"
+              className="bg-white border-border/50 focus:border-accent min-h-[120px] md:min-h-[150px] text-sm md:text-base resize-none"
             />
           </div>
 
-          {/* Consent */}
+          {/* Consent Checkbox */}
           <div className="flex items-start gap-3 pt-2">
             <Checkbox
               id="consent"
@@ -128,27 +161,17 @@ export function ContactForm() {
               }
               className="mt-1"
             />
-
             <Label
               htmlFor="consent"
-              className="text-xs md:text-sm text-foreground/70 leading-relaxed cursor-pointer"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="text-xs md:text-sm text-foreground/70 cursor-pointer leading-relaxed"
             >
-              Souhlasím se{' '}
-              <span
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setPrivacyOpen(true);
-                }}
-                className="text-accent underline hover:no-underline cursor-pointer"
-              >
-                zpracováním osobních údajů
-              </span>{' '}
-              za účelem zodpovězení mého dotazu. *
+              Souhlasím se zpracováním osobních údajů za účelem zodpovězení mého
+              dotazu. *
             </Label>
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <Button
             type="submit"
             size="lg"
@@ -158,18 +181,19 @@ export function ContactForm() {
             Odeslat zprávu
           </Button>
 
-          {/* Info */}
+          {/* Info Note */}
           <div className="flex items-start gap-2 pt-4">
             <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-accent flex-shrink-0 mt-0.5" />
-            <p className="text-xs md:text-sm text-foreground/60">
-              Formulář je odesílán bezpečně. Odpovíme vám v nejbližším možném termínu.
+            <p
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="text-xs md:text-sm text-foreground/60"
+            >
+              Formulář je odesílán bezpečně. Odpovíme vám v nejbližším možném
+              termínu.
             </p>
           </div>
         </form>
       </div>
-
-      {/* PRIVACY POLICY MODAL */}
-      <PrivacyPolicy open={privacyOpen} setOpen={setPrivacyOpen} />
     </section>
   );
 }
