@@ -11,14 +11,13 @@ import {
 type PrivacyPolicyProps = {
   open?: boolean;
   setOpen?: (open: boolean) => void;
-  /** Když nechceš zobrazovat vlastní tlačítko "Zásady...", nastav na false */
   showTrigger?: boolean;
 };
 
 export function PrivacyPolicy({
   open,
   setOpen,
-  showTrigger = true,
+  showTrigger = true, // ✅ ve footeru chceme odkaz vidět defaultně
 }: PrivacyPolicyProps) {
   const isControlled = typeof open === 'boolean' && typeof setOpen === 'function';
 
