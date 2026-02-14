@@ -165,12 +165,12 @@ export function PrivacyPolicy({
             </p>
             <ul className="list-disc list-inside space-y-1 ml-2">
               <li>právo kdykoliv odvolat udělený souhlas se zpracováním osobních údajů;</li>
-              <li>právo na přístup k osobním údajům…</li>
-              <li>právo na opravu osobních údajů…</li>
-              <li>právo na výmaz osobních údajů…</li>
-              <li>právo na omezení zpracování osobních údajů…</li>
-              <li>právo vznést námitku proti zpracování osobních údajů…</li>
-              <li>právo na přenositelnost osobních údajů…</li>
+              <li>právo na přístup k osobním údajům, tj. právo požadovat potvrzení, zda jsou zpracovávány údaje týkající se subjektu a v případě, že ano, tak získat informace o předmětném zpracování, případně kopii zpracovávaných údajů;</li>
+              <li>právo na opravu osobních údajů, tj. právo požadovat opravu nepřesných či doplnění neúplných údajů;</li>
+              <li>právo na výmaz osobních údajů, tj. právo požadovat bezodkladné vymazání zpracovávaných údajů, pokud je dán některý z důvodů dle právních předpisů;</li>
+              <li>právo na omezení zpracování osobních údajů, tj. právo požadovat dočasné omezení zpracování, pokud je dán některý z důvodů dle právních předpisů;</li>
+              <li>právo vznést námitku proti zpracování osobních údajů, tj. právo vznést námitku proti zpracování údajů na právním základě oprávněných zájmů, případně pro účely přímého marketingu;</li>
+              <li>právo na přenositelnost osobních údajů, tj. právo požadovat zpracovávané údaje ve strukturovaném, strojově čitelném formátu, pokud jsou dány podmínky dle právních předpisů;</li>
               <li>právo podat stížnost dozorovému úřadu (ÚOOÚ).</li>
             </ul>
             <p>Práva lze uplatnit zasláním požadavku prostřednictvím kontaktních údajů správce.</p>
