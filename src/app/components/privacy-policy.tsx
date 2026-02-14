@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Shield } from 'lucide-react';
 import {
   Dialog,
@@ -9,20 +8,38 @@ import {
   DialogTrigger,
 } from './ui/dialog';
 
-export function PrivacyPolicy() {
-  const [open, setOpen] = useState(false);
+type PrivacyPolicyProps = {
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
+  /** Když nechceš zobrazovat vlastní tlačítko "Zásady...", nastav na false */
+  showTrigger?: boolean;
+};
+
+export function PrivacyPolicy({
+  open,
+  setOpen,
+  showTrigger = true,
+}: PrivacyPolicyProps) {
+  const isControlled = typeof open === 'boolean' && typeof setOpen === 'function';
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <button
-          style={{ fontFamily: "'Inter', sans-serif" }}
-          className="text-xs md:text-sm text-primary-foreground/60 hover:text-accent transition-colors underline decoration-primary-foreground/20 hover:decoration-accent inline-flex items-center gap-1.5"
-        >
-          <Shield className="w-3 h-3 md:w-4 md:h-4" />
-          Zásady ochrany osobních údajů
-        </button>
-      </DialogTrigger>
+    <Dialog
+      open={isControlled ? open : undefined}
+      onOpenChange={isControlled ? setOpen : undefined}
+    >
+      {showTrigger && (
+        <DialogTrigger asChild>
+          <button
+            type="button"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+            className="text-xs md:text-sm text-primary-foreground/60 hover:text-accent transition-colors underline decoration-primary-foreground/20 hover:decoration-accent inline-flex items-center gap-1.5"
+          >
+            <Shield className="w-3 h-3 md:w-4 md:h-4" />
+            Zásady ochrany osobních údajů
+          </button>
+        </DialogTrigger>
+      )}
+
       <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle
@@ -35,8 +52,8 @@ export function PrivacyPolicy() {
             Zásady ochrany osobních údajů dle GDPR pro advokátní kancelář Mgr. Markéty Protivové
           </DialogDescription>
         </DialogHeader>
-        
-        <div 
+
+        <div
           style={{ fontFamily: "'Inter', sans-serif" }}
           className="space-y-6 text-sm md:text-base text-foreground/80 leading-relaxed"
         >
@@ -50,17 +67,11 @@ export function PrivacyPolicy() {
             </p>
             <p>
               Správce je možné kontaktovat písemně na adrese sídla, elektronickou poštou na adrese{' '}
-              <a
-                href="mailto:protivova@volny.cz"
-                className="text-accent hover:underline"
-              >
+              <a href="mailto:protivova@volny.cz" className="text-accent hover:underline">
                 protivova@volny.cz
               </a>
               , případně telefonicky na čísle{' '}
-              <a
-                href="tel:+420602662167"
-                className="text-accent hover:underline"
-              >
+              <a href="tel:+420602662167" className="text-accent hover:underline">
                 +420 602 662 167
               </a>
               .
@@ -94,9 +105,7 @@ export function PrivacyPolicy() {
             <h3 className="font-semibold text-base md:text-lg text-primary">
               C. Účel a právní základ
             </h3>
-            <p>
-              Správce osobní údaje zpracovává za účelem:
-            </p>
+            <p>Správce osobní údaje zpracovává za účelem:</p>
             <ul className="list-disc list-inside space-y-1 ml-2">
               <li>výkonu advokacie, resp. poskytování právních služeb, s tím, že právním základem je zejména plnění smlouvy, resp. jednání o jejím uzavření, případně plnění právních povinností či oprávněné zájmy správce vyplývající z povahy advokacie;</li>
               <li>výkonu práv a povinností z jiných než klientských smluvních vztahů, včetně pracovněprávních, s tím, že právním základem je plnění smlouvy, resp. jednání o jejím uzavření;</li>
@@ -115,9 +124,7 @@ export function PrivacyPolicy() {
             <h3 className="font-semibold text-base md:text-lg text-primary">
               D. Doba zpracování
             </h3>
-            <p>
-              Osobní údaje budou správcem zpracovávány:
-            </p>
+            <p>Osobní údaje budou správcem zpracovávány:</p>
             <ul className="list-disc list-inside space-y-1 ml-2">
               <li>po dobu trvání smluvního vztahu, pokud je právním základem zpracování plnění smlouvy;</li>
               <li>po dobu na níž byl udělen souhlas, resp. do jeho odvolání, pokud je právním základem zpracování souhlas subjektu;</li>
@@ -145,9 +152,7 @@ export function PrivacyPolicy() {
               <li>Orgány veřejné moci;</li>
               <li>Spolupracující advokátní kanceláře.</li>
             </ul>
-            <p>
-              Správce v žádném případě nepředává osobní údaje příjemcům mimo Evropskou unii.
-            </p>
+            <p>Správce v žádném případě nepředává osobní údaje příjemcům mimo Evropskou unii.</p>
           </div>
 
           {/* F. Práva subjektu */}
@@ -160,17 +165,15 @@ export function PrivacyPolicy() {
             </p>
             <ul className="list-disc list-inside space-y-1 ml-2">
               <li>právo kdykoliv odvolat udělený souhlas se zpracováním osobních údajů;</li>
-              <li>právo na přístup k osobním údajům, tj. právo požadovat potvrzení, zda jsou zpracovávány údaje týkající se subjektu a v případě, že ano, tak získat informace o předmětném zpracování, případně kopii zpracovávaných údajů;</li>
-              <li>právo na opravu osobních údajů, tj. právo požadovat opravu nepřesných či doplnění neúplných údajů;</li>
-              <li>právo na výmaz osobních údajů, tj. právo požadovat bezodkladné vymazání zpracovávaných údajů, pokud je dán některý z důvodů dle právních předpisů;</li>
-              <li>právo na omezení zpracování osobních údajů, tj. právo požadovat dočasné omezení zpracování, pokud je dán některý z důvodů dle právních předpisů;</li>
-              <li>právo vznést námitku proti zpracování osobních údajů, tj. právo vznést námitku proti zpracování údajů na právním základě oprávněných zájmů, případně pro účely přímého marketingu;</li>
-              <li>právo na přenositelnost osobních údajů, tj. právo požadovat zpracovávané údaje ve strukturovaném, strojově čitelném formátu, pokud jsou dány podmínky dle právních předpisů;</li>
+              <li>právo na přístup k osobním údajům…</li>
+              <li>právo na opravu osobních údajů…</li>
+              <li>právo na výmaz osobních údajů…</li>
+              <li>právo na omezení zpracování osobních údajů…</li>
+              <li>právo vznést námitku proti zpracování osobních údajů…</li>
+              <li>právo na přenositelnost osobních údajů…</li>
               <li>právo podat stížnost dozorovému úřadu (ÚOOÚ).</li>
             </ul>
-            <p>
-              Práva lze uplatnit zasláním požadavku prostřednictvím kontaktních údajů správce.
-            </p>
+            <p>Práva lze uplatnit zasláním požadavku prostřednictvím kontaktních údajů správce.</p>
           </div>
 
           {/* G. Obchodní sdělení */}
