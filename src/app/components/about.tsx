@@ -7,7 +7,7 @@ export function About() {
         {/* Header */}
         <div className="text-center mb-8 md:mb-12 space-y-4">
           <h2 style={{ fontFamily: "'Playfair Display', serif" }} className="text-3xl md:text-4xl lg:text-5xl text-primary px-4">
-            O mě
+            O mně
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
         </div>
