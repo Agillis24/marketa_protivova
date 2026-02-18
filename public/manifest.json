@@ -1,0 +1,21 @@
+{
+  "name": "Mgr. Markéta Protivová - Advokátka",
+  "short_name": "Protivová",
+  "description": "Advokátka v Praze se zaměřením na občanské, trestní a rozvodové právo. Osobní přístup, rychlá komunikace a pečlivá příprava každého případu.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a5f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "lang": "cs",
+  "dir": "ltr",
+  "categories": ["legal", "business", "professional-services"],
+  "scope": "/"
+}

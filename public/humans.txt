@@ -1,0 +1,18 @@
+# humanstxt.org
+
+/* TEAM */
+Lawyer: Mgr. Markéta Protivová
+Contact: protivova@volny.cz
+Location: Praha, Czech Republic
+
+/* SITE */
+Last update: 2026-02-18
+Language: Czech
+Standards: HTML5, CSS3, React, TypeScript
+Components: Radix UI, Tailwind CSS
+Software: Vite, React, Figma Make
+
+/* ABOUT */
+This website provides legal services in Prague, Czech Republic.
+Specializing in civil, criminal, and family law.
+Designed for accessibility and performance.

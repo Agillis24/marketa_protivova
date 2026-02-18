@@ -1,0 +1,15 @@
+# robots.txt for Mgr. Markéta Protivová - Advokátka
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.marketaprotivova.cz/sitemap.xml
+
+# Crawl-delay (optional - can help with server load)
+# Crawl-delay: 1
+
+# Disallow certain paths (if any - currently none)
+# Disallow: /admin/
+# Disallow: /private/

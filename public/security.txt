@@ -1,0 +1,6 @@
+# Security Contact Information
+# https://securitytxt.org/
+
+Contact: mailto:protivova@volny.cz
+Preferred-Languages: cs, en
+Canonical: https://www.marketaprotivova.cz/.well-known/security.txt

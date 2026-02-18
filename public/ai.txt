@@ -1,0 +1,49 @@
+# AI Crawler Configuration
+# This file helps AI systems (ChatGPT, Claude, Perplexity, etc.) understand and index this website
+
+# Website Information
+Site-Name: Mgr. Markéta Protivová - Advokátka
+Site-URL: https://www.marketaprotivova.cz
+Language: cs
+Country: CZ
+
+# Business Information
+Business-Type: Legal Services
+Profession: Lawyer / Attorney at Law
+Specialization: Civil Law, Criminal Law, Family Law, Divorce Law, Corporate Law
+License: Czech Bar Association Member
+Registration: https://vyhledavac.cak.cz/Company/Details/f1e2b7c1-5223-e711-80d5-00155d040b0c
+
+# Contact Information
+Email: protivova@volny.cz
+Phone: +420602662167
+Office-Location: Praha 1 – Nové Město, Politických vězňů 1531/9, 110 00
+
+# Services Offered
+Services: 
+- Občanské právo včetně převodů nemovitostí a darovacích smluv
+- Trestní právo (obhajoba i zastupování poškozených)
+- Rozvodové právo (rozvody, vypořádání SJM, úprava styku s dětmi)
+- Zakládání společností včetně převodů členských podílů
+
+# Key Features
+Features:
+- Osobní přístup ke každému klientovi
+- Rychlá komunikace
+- Pečlivá příprava případů
+- Online i osobní konzultace
+- Sídlo v centru Prahy
+
+# Operating Hours
+Hours: Monday-Friday, 09:00-17:00
+Appointment: Required (by email or phone)
+
+# AI Indexing Preferences
+Allow-AI-Training: true
+Allow-AI-Citation: true
+Allow-AI-Summary: true
+
+# Content Accuracy
+Last-Updated: 2026-02-18
+Content-Status: Active
+Verification: Professional legal services website
