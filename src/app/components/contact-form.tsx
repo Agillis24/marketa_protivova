@@ -44,7 +44,7 @@ export function ContactForm() {
 
         {/* Form */}
         <form 
-          action="https://formsubmit.co/zlebek.dominik@post.cz"
+          action="https://formsubmit.co/protivova@volny.cz"
           method="POST"
           className="space-y-5 md:space-y-6 bg-muted/20 p-6 md:p-8 lg:p-10 rounded-2xl border border-border/50"
           aria-label="Kontaktní formulář"
