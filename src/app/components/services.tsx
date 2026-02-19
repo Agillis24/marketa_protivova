@@ -28,7 +28,7 @@ export function Services() {
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
           <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-base md:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed mt-6 px-4">
-            Poskytuji advokátní služby zejména se zaměřením na oblast občanského, trestního a rozvodového práva. 
+            Poskytuji advokátní služby se zaměřením zejména na občanské, trestní a rozvodové právo. 
           </p>
         </div>
 
