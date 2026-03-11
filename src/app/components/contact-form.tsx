@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -15,6 +15,50 @@ export function ContactForm() {
     consent: false,
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitted(false);
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    try {
+      const form = e.currentTarget;
+      const payload = new FormData(form);
+      const currentScrollY = window.scrollY;
+
+      const response = await fetch('https://formsubmit.co/protivova@volny.cz', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: payload,
+      });
+
+      if (!response.ok) {
+        throw new Error('Nepodařilo se odeslat formulář.');
+      }
+
+      setIsSubmitted(true);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+        consent: false,
+      });
+
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: currentScrollY, behavior: 'auto' });
+      });
+    } catch {
+      setSubmitError('Odeslání se nepodařilo. Zkuste to prosím znovu nebo nám zavolejte.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="kontakt" className="py-12 md:py-20 px-4 bg-white">
@@ -30,22 +74,31 @@ export function ContactForm() {
           </p>
         </div>
 
-        {/* Success Message */}
-        {isSubmitted && (
-          <div className="mb-8 p-6 bg-green-50 border border-green-200 rounded-xl">
-            <div className="flex items-center gap-3 text-green-800">
-              <CheckCircle2 className="w-6 h-6 flex-shrink-0" />
-              <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-base font-medium">
-                Děkujeme! Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme.
+        {/* Status Message (reserved space to avoid layout jump) */}
+        <div className="mb-8 min-h-[96px]" aria-live="polite" aria-atomic="true">
+          {isSubmitted && (
+            <div className="p-6 bg-green-50 border border-green-200 rounded-xl">
+              <div className="flex items-center gap-3 text-green-800">
+                <CheckCircle2 className="w-6 h-6 flex-shrink-0" />
+                <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-base font-medium">
+                  Vaše zpráva byla úspěšně odeslána. Brzy se s Vámi spojíme.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {submitError && (
+            <div className="p-6 bg-red-50 border border-red-200 rounded-xl">
+              <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-base font-medium text-red-800">
+                {submitError}
               </p>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Form */}
         <form 
-          action="https://formsubmit.co/protivova@volny.cz"
-          method="POST"
+          onSubmit={handleSubmit}
           className="space-y-5 md:space-y-6 bg-muted/20 p-6 md:p-8 lg:p-10 rounded-2xl border border-border/50"
           aria-label="Kontaktní formulář"
         >
@@ -53,7 +106,6 @@ export function ContactForm() {
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_subject" value="Nový dotaz z webu www.marketaprotivova.cz" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://www.marketaprotivova.cz/#kontakt" />
           <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" />
           
           {/* Name */}
@@ -145,10 +197,11 @@ export function ContactForm() {
           <Button
             type="submit"
             size="lg"
+            disabled={isSubmitting}
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-5 md:py-6 text-base md:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all mt-6 md:mt-8"
           >
             <Send className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-            Odeslat zprávu
+            {isSubmitting ? 'Odesílám...' : 'Odeslat zprávu'}
           </Button>
 
           {/* Info Note */}
