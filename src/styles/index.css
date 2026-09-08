@@ -2,6 +2,20 @@
 @import './tailwind.css';
 @import './theme.css';
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -18,13 +32,6 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #c29363;
-}
-
-/* Smooth transitions */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: ease-in-out;
-  transition-duration: 150ms;
 }
 
 /* Selection color */

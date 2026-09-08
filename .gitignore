@@ -3,4 +3,3 @@ dist/
 
 # OS / tooling noise
 .DS_Store
-*.log

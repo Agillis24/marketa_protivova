@@ -1,6 +1,5 @@
 import { Phone, MessageSquare } from 'lucide-react';
 import { Button } from './ui/button';
-import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function Hero() {
   const scrollToSection = (id: string) => {
@@ -14,9 +13,15 @@ export function Hero() {
     <section id="uvod" className="relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden px-4 pt-20 md:pt-24 pb-12 md:pb-16">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <ImageWithFallback
-          src="https://images.unsplash.com/photo-1541849546-216549ae216d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxQcmFndWUlMjBjaXR5c2NhcGUlMjBwYW5vcmFtYXxlbnwxfHx8fDE3NzEwMTUzMjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
-          alt="Panoramatický pohled na Prahu - město působnosti advokátky Markéty Protivové"
+        <img
+          src="/images/hero-1280.webp"
+          srcSet="/images/hero-768.webp 768w, /images/hero-1280.webp 1280w, /images/hero-1920.webp 1920w"
+          sizes="100vw"
+          width={1920}
+          height={1280}
+          fetchPriority="high"
+          decoding="async"
+          alt="Panoramatický pohled na Prahu"
           className="w-full h-full object-cover"
         />
         {/* Gradient overlays for better text readability */}
