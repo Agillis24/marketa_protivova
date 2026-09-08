@@ -104,7 +104,7 @@ export function ContactForm() {
         >
           {/* FormSubmit Configuration */}
           <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_subject" value="Nový dotaz z webu www.marketaprotivova.cz" />
+          <input type="hidden" name="_subject" value="Nový dotaz z webu marketaprotivova.cz" />
           <input type="hidden" name="_template" value="table" />
           <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" />
           

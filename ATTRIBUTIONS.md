@@ -1,3 +1,2 @@
-This Figma Make file includes components from [shadcn/ui](https://ui.shadcn.com/) used under [MIT license](https://github.com/shadcn-ui/ui/blob/main/LICENSE.md).
-
-This Figma Make file includes photos from [Unsplash](https://unsplash.com) used under [license](https://unsplash.com/license).
+- Komponenty v `src/app/components/ui/` vycházejí ze [shadcn/ui](https://ui.shadcn.com/) (MIT).
+- Fotografie Prahy v úvodu: [Unsplash](https://unsplash.com/photos/1541849546-216549ae216d), použito dle [Unsplash License](https://unsplash.com/license).

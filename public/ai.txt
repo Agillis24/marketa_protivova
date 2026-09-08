@@ -3,7 +3,7 @@
 
 # Website Information
 Site-Name: Mgr. Markéta Protivová - Advokátka
-Site-URL: https://www.marketaprotivova.cz
+Site-URL: https://marketaprotivova.cz
 Language: cs
 Country: CZ
 
