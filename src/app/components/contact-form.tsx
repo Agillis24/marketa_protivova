@@ -26,18 +26,21 @@ export function ContactForm() {
 
     try {
       const form = e.currentTarget;
-      const payload = new FormData(form);
-      const currentScrollY = window.scrollY;
+      const payload = Object.fromEntries(new FormData(form));
 
-      const response = await fetch('https://formsubmit.co/protivova@volny.cz', {
+      // Endpoint /ajax/ vrací JSON s výsledkem. Běžný endpoint vrací HTML stránku
+      // se stavem 200 i ve chvíli, kdy se e-mail neodeslal (např. neaktivovaný formulář).
+      const response = await fetch('https://formsubmit.co/ajax/protivova@volny.cz', {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: payload,
+        body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
+      const result: { success?: string | boolean } | null = await response.json().catch(() => null);
+      if (!response.ok || String(result?.success) !== 'true') {
         throw new Error('Nepodařilo se odeslat formulář.');
       }
 
@@ -49,12 +52,8 @@ export function ContactForm() {
         message: '',
         consent: false,
       });
-
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: currentScrollY, behavior: 'auto' });
-      });
     } catch {
-      setSubmitError('Odeslání se nepodařilo. Zkuste to prosím znovu nebo nám zavolejte.');
+      setSubmitError('Odeslání se nepodařilo. Zkuste to prosím znovu, nebo mi zavolejte na +420 602 662 167.');
     } finally {
       setIsSubmitting(false);
     }
@@ -65,35 +64,13 @@ export function ContactForm() {
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12 space-y-4">
-          <h2 style={{ fontFamily: "'Playfair Display', serif" }} className="text-3xl md:text-4xl lg:text-5xl text-primary px-4">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-primary px-4">
             Napište mi, ozvu se co nejdříve
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
-          <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-base md:text-lg text-foreground/70 mt-6 px-4">
+          <p className="text-base md:text-lg text-foreground/70 mt-6 px-4">
             Krátce popište svůj právní problém nebo dotaz.
           </p>
-        </div>
-
-        {/* Status Message (reserved space to avoid layout jump) */}
-        <div className="mb-8 min-h-[96px]" aria-live="polite" aria-atomic="true">
-          {isSubmitted && (
-            <div className="p-6 bg-green-50 border border-green-200 rounded-xl">
-              <div className="flex items-center gap-3 text-green-800">
-                <CheckCircle2 className="w-6 h-6 flex-shrink-0" />
-                <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-base font-medium">
-                  Vaše zpráva byla úspěšně odeslána. Brzy se s Vámi spojíme.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {submitError && (
-            <div className="p-6 bg-red-50 border border-red-200 rounded-xl">
-              <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-base font-medium text-red-800">
-                {submitError}
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Form */}
@@ -110,7 +87,7 @@ export function ContactForm() {
           
           {/* Name */}
           <div className="space-y-2">
-            <Label htmlFor="name" style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm md:text-base">
+            <Label htmlFor="name" className="text-sm md:text-base">
               Jméno a příjmení *
             </Label>
             <Input
@@ -127,7 +104,7 @@ export function ContactForm() {
 
           {/* Email */}
           <div className="space-y-2">
-            <Label htmlFor="email" style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm md:text-base">
+            <Label htmlFor="email" className="text-sm md:text-base">
               E-mail *
             </Label>
             <Input
@@ -144,7 +121,7 @@ export function ContactForm() {
 
           {/* Phone */}
           <div className="space-y-2">
-            <Label htmlFor="phone" style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm md:text-base">
+            <Label htmlFor="phone" className="text-sm md:text-base">
               Telefon
             </Label>
             <Input
@@ -160,7 +137,7 @@ export function ContactForm() {
 
           {/* Message */}
           <div className="space-y-2">
-            <Label htmlFor="message" style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm md:text-base">
+            <Label htmlFor="message" className="text-sm md:text-base">
               Zpráva *
             </Label>
             <Textarea
@@ -185,8 +162,7 @@ export function ContactForm() {
               className="mt-1"
             />
             <Label 
-              htmlFor="consent" 
-              style={{ fontFamily: "'Inter', sans-serif" }}
+              htmlFor="consent"
               className="text-xs md:text-sm text-foreground/70 cursor-pointer leading-relaxed"
             >
               Souhlasím se zpracováním osobních údajů za účelem zodpovězení mého dotazu. *
@@ -204,11 +180,33 @@ export function ContactForm() {
             {isSubmitting ? 'Odesílám...' : 'Odeslat zprávu'}
           </Button>
 
+          {/* Stav odeslání: pod tlačítkem, takže nic nad ním neposkakuje */}
+          <div aria-live="polite" aria-atomic="true">
+            {isSubmitted && (
+              <div className="p-5 bg-green-50 border border-green-200 rounded-xl">
+                <div className="flex items-center gap-3 text-green-800">
+                  <CheckCircle2 className="w-6 h-6 flex-shrink-0" />
+                  <p className="text-base font-medium">
+                    Děkuji, zpráva byla odeslána. Ozvu se vám co nejdříve.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {submitError && (
+              <div className="p-5 bg-red-50 border border-red-200 rounded-xl">
+                <p className="text-base font-medium text-red-800">
+                  {submitError}
+                </p>
+              </div>
+            )}
+          </div>
+
           {/* Info Note */}
           <div className="flex items-start gap-2 pt-4">
             <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-accent flex-shrink-0 mt-0.5" />
-            <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-xs md:text-sm text-foreground/60">
-              Formulář je odesílán bezpečně. Odpovíme vám v nejbližším možném termínu.
+            <p className="text-xs md:text-sm text-foreground/60">
+              Formulář je odesílán šifrovaně. Odpovím vám v nejbližším možném termínu.
             </p>
           </div>
         </form>

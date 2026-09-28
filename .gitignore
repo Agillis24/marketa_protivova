@@ -1,5 +1,7 @@
 node_modules/
 dist/
+dist-ssr/
 
 # OS / tooling noise
 .DS_Store
+*.log

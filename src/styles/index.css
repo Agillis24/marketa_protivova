@@ -1,13 +1,20 @@
-@import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
 
+/* Fonty jsou hostované lokálně (@fontsource-variable), importují se v main.tsx. */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Playfair Display Variable', Georgia, 'Times New Roman', serif;
+}
+
 html {
   scroll-behavior: smooth;
+  /* Pevná navigace nahoře nesmí překrýt nadpis sekce po kliknutí na odkaz. */
+  scroll-padding-top: 5.5rem;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
 }
 
 @media (prefers-reduced-motion: reduce) {

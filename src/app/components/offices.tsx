@@ -1,4 +1,5 @@
-import { MapPin, Phone, Mail, Navigation } from 'lucide-react';
+import { useState } from 'react';
+import { MapPin, Phone, Mail, Navigation, Map as MapIcon } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 
@@ -14,12 +15,16 @@ const office = {
 };
 
 export function Offices() {
+  // Mapa Google se načte až po kliknutí: bez souhlasu návštěvníka se Googlu nic neposílá
+  // a stránka nestahuje ~1 MB skriptů mapy při každé návštěvě.
+  const [showMap, setShowMap] = useState(false);
+
   return (
     <section id="kancelare" className="py-12 md:py-20 px-4 bg-muted/30">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 space-y-4">
-          <h2 style={{ fontFamily: "'Playfair Display', serif" }} className="text-3xl md:text-4xl lg:text-5xl text-primary px-4">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-primary px-4">
             Moje kancelář
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
@@ -35,13 +40,13 @@ export function Offices() {
               {/* Header */}
               <div className="flex items-center gap-4 pb-5 border-b-2 border-accent/20">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 md:w-7 md:h-7 text-accent" />
+                  <MapPin className="w-6 h-6 md:w-7 md:h-7 text-accent" aria-hidden="true" />
                 </div>
                 <div>
-                  <h3 style={{ fontFamily: "'Playfair Display', serif" }} className="text-xl md:text-2xl text-primary">
+                  <h3 className="font-display text-xl md:text-2xl text-primary">
                     Advokátní kancelář Praha 1
                   </h3>
-                  <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm text-foreground/60 mt-1">
+                  <p className="text-sm text-foreground/60 mt-1">
                     Objednání osobní schůzky je možné po předchozí domluvě e‑mailem nebo telefonicky.
                   </p>
                 </div>
@@ -51,8 +56,8 @@ export function Offices() {
               <div className="space-y-4">
                 {/* Address */}
                 <div className="flex items-start gap-3 p-3 md:p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
-                  <MapPin className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                  <div style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm md:text-base text-foreground/90">
+                  <MapPin className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" aria-hidden="true" />
+                  <div className="text-sm md:text-base text-foreground/90">
                     <p className="font-medium">{office.address}</p>
                     <p className="mt-1">{office.postalCode}</p>
                   </div>
@@ -63,8 +68,8 @@ export function Offices() {
                   href={`tel:${office.phone.replace(/\s/g, '')}`}
                   className="flex items-center gap-3 p-3 md:p-4 rounded-lg bg-muted/30 hover:bg-accent/10 transition-all group"
                 >
-                  <Phone className="w-5 h-5 text-accent group-hover:scale-110 transition-transform flex-shrink-0" />
-                  <span style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm md:text-base text-foreground/90 font-medium">{office.phone}</span>
+                  <Phone className="w-5 h-5 text-accent group-hover:scale-110 transition-transform flex-shrink-0" aria-hidden="true" />
+                  <span className="text-sm md:text-base text-foreground/90 font-medium">{office.phone}</span>
                 </a>
 
                 {/* Email */}
@@ -72,38 +77,56 @@ export function Offices() {
                   href={`mailto:${office.email}`}
                   className="flex items-center gap-3 p-3 md:p-4 rounded-lg bg-muted/30 hover:bg-accent/10 transition-all group"
                 >
-                  <Mail className="w-5 h-5 text-accent group-hover:scale-110 transition-transform flex-shrink-0" />
-                  <span style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm md:text-base text-foreground/90 font-medium break-all">{office.email}</span>
+                  <Mail className="w-5 h-5 text-accent group-hover:scale-110 transition-transform flex-shrink-0" aria-hidden="true" />
+                  <span className="text-sm md:text-base text-foreground/90 font-medium break-all">{office.email}</span>
                 </a>
               </div>
 
               {/* Navigate Button */}
-              <Button 
+              <Button
+                asChild
                 variant="outline"
                 className="w-full mt-2 border-2 border-accent/40 text-primary hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all text-sm md:text-base py-5 md:py-6 font-semibold"
-                onClick={() => window.open(office.mapUrl, '_blank')}
               >
-                <Navigation className="w-4 h-4 mr-2" />
-                Navigovat
+                <a href={office.mapUrl} target="_blank" rel="noopener noreferrer">
+                  <Navigation className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Navigovat
+                </a>
               </Button>
             </div>
           </Card>
 
           {/* Map */}
-          <div className="bg-white rounded-xl overflow-hidden border border-border/50 shadow-lg min-h-[400px] lg:min-h-[480px]">
-            <div className="w-full h-full bg-muted/50 flex items-center justify-center relative">
+          <div className="relative bg-white rounded-xl overflow-hidden border border-border/50 shadow-lg min-h-[400px] lg:min-h-[480px]">
+            {showMap ? (
               <iframe
-                title="Mapa polohy advokátní kanceláře v Praze"
+                title="Mapa polohy advokátní kanceláře v Praze 1"
                 src={office.mapEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0, position: 'absolute', top: 0, left: 0 }}
+                className="absolute inset-0 w-full h-full border-0"
                 allowFullScreen
-                loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                aria-label="Interaktivní mapa ukazující polohu advokátní kanceláře v Praze 1"
               />
-            </div>
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 p-8 text-center bg-muted/60 bg-[linear-gradient(to_right,rgba(26,31,54,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(26,31,54,0.05)_1px,transparent_1px)] bg-[size:32px_32px]">
+                <div className="w-16 h-16 rounded-full bg-accent/15 flex items-center justify-center">
+                  <MapPin className="w-8 h-8 text-accent" aria-hidden="true" />
+                </div>
+                <div className="space-y-1 text-primary">
+                  <p className="font-semibold">{office.address}</p>
+                  <p className="text-sm text-foreground/70">{office.postalCode}</p>
+                </div>
+                <Button
+                  onClick={() => setShowMap(true)}
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 px-6"
+                >
+                  <MapIcon className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Zobrazit mapu
+                </Button>
+                <p className="text-xs text-foreground/60 max-w-xs">
+                  Po kliknutí se načte mapa ze služby Google Mapy, která může ukládat cookies.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
