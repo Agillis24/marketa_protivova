@@ -16,18 +16,17 @@ export function PrivacyPolicy() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button
-          style={{ fontFamily: "'Inter', sans-serif" }}
           className="text-xs md:text-sm text-primary-foreground/60 hover:text-accent transition-colors underline decoration-primary-foreground/20 hover:decoration-accent inline-flex items-center gap-1.5"
         >
           <Shield className="w-3 h-3 md:w-4 md:h-4" />
           Zásady ochrany osobních údajů
         </button>
       </DialogTrigger>
-      <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-3xl max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle
-            style={{ fontFamily: "'Playfair Display', serif" }}
-            className="text-2xl md:text-3xl text-primary"
+            
+           className="font-display text-2xl md:text-3xl text-primary"
           >
             Zásady ochrany osobních údajů
           </DialogTitle>
@@ -36,8 +35,7 @@ export function PrivacyPolicy() {
           </DialogDescription>
         </DialogHeader>
         
-        <div 
-          style={{ fontFamily: "'Inter', sans-serif" }}
+        <div
           className="space-y-6 text-sm md:text-base text-foreground/80 leading-relaxed"
         >
           {/* A. Správce */}

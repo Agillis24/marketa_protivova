@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stránka nenalezena | Mgr. Markéta Protivová - Advokátka</title>
+  <meta name="robots" content="noindex">
+  <title>Stránka nenalezena | Mgr. Markéta Protivová, advokátka</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8a 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1f36;
       color: #ffffff;
       min-height: 100vh;
       display: flex;
@@ -20,73 +18,40 @@
       justify-content: center;
       padding: 20px;
     }
-    .container {
-      text-align: center;
-      max-width: 600px;
-    }
+    .container { text-align: center; max-width: 560px; }
     h1 {
+      font-family: Georgia, 'Times New Roman', serif;
       font-size: 6rem;
       font-weight: 700;
-      color: #d4af37;
-      margin-bottom: 1rem;
+      color: #d4a574;
       line-height: 1;
-    }
-    h2 {
-      font-size: 1.5rem;
       margin-bottom: 1rem;
-      font-weight: 400;
     }
-    p {
-      font-size: 1rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-      line-height: 1.6;
-    }
+    h2 { font-size: 1.5rem; font-weight: 500; margin-bottom: 1rem; }
+    p { margin-bottom: 2rem; opacity: 0.85; line-height: 1.6; }
     .btn {
       display: inline-block;
-      background: #d4af37;
-      color: #1e3a5f;
+      background: #d4a574;
+      color: #1a1f36;
       padding: 12px 32px;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+      transition: background 0.2s ease;
     }
-    .btn:hover {
-      background: #b8960b;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
-    }
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 4rem;
-      }
-      h2 {
-        font-size: 1.25rem;
-      }
-    }
+    .btn:hover, .btn:focus-visible { background: #c29363; }
+    .contact { margin-top: 2rem; font-size: 0.95rem; opacity: 0.75; }
+    .contact a { color: #ffffff; }
+    @media (max-width: 768px) { h1 { font-size: 4rem; } h2 { font-size: 1.25rem; } }
   </style>
-  <script type="text/javascript">
-    // Single Page Application redirect for GitHub Pages
-    // This script takes the current URL and redirects to the root with the path as a query string
-    var pathSegmentsToKeep = 0;
-    var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
-  </script>
 </head>
 <body>
-  <div class="container">
+  <main class="container">
     <h1>404</h1>
     <h2>Stránka nenalezena</h2>
-    <p>Omlouváme se, ale požadovaná stránka neexistuje. Přesměrujeme vás na hlavní stránku.</p>
+    <p>Požadovaná stránka neexistuje. Veškeré informace najdete na hlavní stránce.</p>
     <a href="/" class="btn">Zpět na hlavní stránku</a>
-  </div>
+    <p class="contact">Telefon <a href="tel:+420602662167">+420 602 662 167</a> · <a href="mailto:protivova@volny.cz">protivova@volny.cz</a></p>
+  </main>
 </body>
 </html>

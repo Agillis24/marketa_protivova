@@ -19,15 +19,15 @@ export function Services() {
         {/* Header */}
         <div 
           ref={ref}
-          className={`text-center mb-12 md:mb-16 space-y-4 transition-all duration-700 ${
+          className={`reveal text-center mb-12 md:mb-16 space-y-4 transition-all duration-700 motion-reduce:transition-none ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 style={{ fontFamily: "'Playfair Display', serif" }} className="text-3xl md:text-4xl lg:text-5xl text-primary px-4">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-primary px-4">
             O službách
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
-          <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-base md:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed mt-6 px-4">
+          <p className="text-base md:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed mt-6 px-4">
             Poskytuji advokátní služby se zaměřením zejména na občanské, trestní a rozvodové právo. 
           </p>
         </div>
@@ -38,20 +38,20 @@ export function Services() {
             const Icon = service.icon;
             return (
               <Card 
-                key={index} 
-                className={`p-5 md:p-6 hover:shadow-xl transition-all duration-500 border-border/50 hover:border-accent/50 group ${
+                key={service.title} 
+                className={`reveal p-5 md:p-6 hover:shadow-xl transition-all duration-500 motion-reduce:transition-none border-border/50 hover:border-accent/50 group ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="space-y-3 md:space-y-4">
                   <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                    <Icon className="w-6 h-6 md:w-7 md:h-7 text-accent" />
+                    <Icon className="w-6 h-6 md:w-7 md:h-7 text-accent" aria-hidden="true" />
                   </div>
-                  <h3 style={{ fontFamily: "'Inter', sans-serif" }} className="text-lg md:text-xl font-semibold text-primary">
+                  <h3 className="text-lg md:text-xl font-semibold text-primary">
                     {service.title}
                   </h3>
-                  <p style={{ fontFamily: "'Inter', sans-serif" }} className="text-sm md:text-base text-foreground/70 leading-relaxed">
+                  <p className="text-sm md:text-base text-foreground/70 leading-relaxed">
                     {service.description}
                   </p>
                 </div>

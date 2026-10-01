@@ -6,8 +6,15 @@ Jednostránkový web advokátní kanceláře (Praha, Kladno). Běží na GitHub 
 
 - Vite 6, React 18, TypeScript
 - Tailwind CSS 4, několik komponent shadcn/ui (Radix)
-- Ikony lucide-react
-- Kontaktní formulář přes [FormSubmit](https://formsubmit.co) na adresu protivova@volny.cz
+- Ikony lucide-react, fonty Inter a Playfair Display hostované lokálně (@fontsource-variable)
+- Kontaktní formulář přes [FormSubmit](https://formsubmit.co) (endpoint `/ajax/`) na adresu protivova@volny.cz
+- Mapa Google se načítá až po kliknutí návštěvníka, do té doby web nekontaktuje žádnou cizí službu
+
+## Předrenderování
+
+`npm run build` po běžném buildu vyrenderuje stránku i na serveru (`src/entry-server.tsx`) a skript `scripts/prerender.mjs` vloží hotové HTML do `dist/index.html`. Text webu tak vidí i vyhledávače a roboti, kteří nespouštějí JavaScript (Seznam, AI crawlery), a v prohlížeči se zobrazí dřív. React pak stránku jen „oživí" (hydratace).
+
+Při úpravách komponent proto platí jediné pravidlo: první vykreslení nesmí záviset na `window`, `document` ani `localStorage`. Takový kód patří do `useEffect`.
 
 ## Vývoj
 
@@ -36,6 +43,6 @@ Každý push do větve `main` spustí workflow `.github/workflows/deploy.yml`, k
 | Barvy | `src/styles/theme.css` (`--primary`, `--accent`) |
 | Hlavní fotka | `public/images/hero-*.webp` (3 velikosti) |
 | Náhled při sdílení | `public/og-image.jpg` (1200 x 630) |
-| Sitemap, robots | `public/sitemap.xml`, `public/robots.txt` |
+| Sitemap, robots, security.txt | `public/sitemap.xml`, `public/robots.txt`, `public/.well-known/security.txt` (pole Expires obnovit do 28. 9. 2027) |
 
 Po změně kontaktů je uveďte na třech místech: v komponentách, v JSON-LD v `index.html` a v `public/ai.txt`.
